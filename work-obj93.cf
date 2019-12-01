@@ -1,0 +1,25 @@
+v 4
+file . "ula.vhd" "345fa0ed0d3db108c25ae89c4701fb97f9792ce5" "20191015170622.930":
+  entity ula at 1( 0) + 0 on 31;
+  architecture ula of ula at 11( 159) + 0 on 32;
+file . "mux_32bits.vhd" "76440aef2eba2947480688bdac658633f9dca44e" "20191015162854.400":
+  entity mux_32 at 1( 0) + 0 on 27;
+  architecture mux_32 of mux_32 at 15( 287) + 0 on 28;
+file . "somador.vhd" "56ce1d585c42a6b4a5331f18f5bb8b37bb2c3bab" "20191015170331.613":
+  entity somador at 1( 0) + 0 on 29;
+  architecture somador of somador at 13( 257) + 0 on 30;
+file . "ROM.vhd" "1e6c0ec45160d8fa2c9daa327604da9f356bce80" "20191009164725.561":
+  entity instruction_memory at 1( 0) + 0 on 19;
+  architecture instruction_memory of instruction_memory at 15( 255) + 0 on 20;
+file . "memoria_dados.vhd" "9eda50ed9577f5838d1653c1df5a109ecb1268d1" "20191009164615.436":
+  entity data_memory at 1( 0) + 0 on 17;
+  architecture data_memory of data_memory at 15( 323) + 0 on 18;
+file . "banco_registradores.vhd" "688561340ac537b903d4724ebb1c640d015865e3" "20191113120758.028":
+  entity banco_reg at 1( 0) + 0 on 35;
+  architecture banco_reg of banco_reg at 19( 474) + 0 on 36;
+file . "pc.vhd" "16be22a6f05af68309ad5ea303d77f9ea1540641" "20191106212533.928":
+  entity pc at 1( 0) + 0 on 33;
+  architecture rtl of pc at 16( 231) + 0 on 34;
+file . "top_module.vhd" "99c5c561ccc0b60f1654c04e98ea8e0af0f4b60b" "20191113164514.082":
+  entity agora_vai at 1( 0) + 0 on 47;
+  architecture rtl of agora_vai at 16( 238) + 0 on 48;
