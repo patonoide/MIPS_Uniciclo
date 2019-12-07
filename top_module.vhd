@@ -37,13 +37,14 @@ architecture rtl of Agora_vai is
 
 	component controle is
 	  port (
+	  	clk : in std_logic;
 	    instruction : in std_logic_vector(5 downto 0);
 	    regdst : out std_logic;
 	    jump : out std_logic;
 	    branch : out std_logic;
 	    memread : out std_logic;
 	    memtoreg : out std_logic;
-	    aluop : out std_logic_vector(3 downto 0);
+	    aluop : out std_logic_vector(2 downto 0);
 	    memwrite : out std_logic;
 	    alusrc : out std_logic;
 	    regwrite : out std_logic
@@ -117,7 +118,7 @@ end component;
   component ula_control is
   	port (
     	instruction_in : in std_logic_vector(5 downto 0);
-    	alu_op : in std_logic_vector(3 downto 0);
+    	alu_op : in std_logic_vector(2 downto 0);
     	alu_op_out : out std_logic_vector(3 downto 0)
   	);
    end component;
@@ -145,7 +146,7 @@ end component;
 	signal control_branch : std_logic;
 	signal control_regdest : std_logic;
 	signal control_memread : std_logic;
-	signal control_alu_op : std_logic_vector(3 downto 0);
+	signal control_alu_op : std_logic_vector(2 downto 0);
 	signal control_memwrite : std_logic;
 	signal control_alusrc : std_logic;
 	signal control_reg_write : std_logic;
@@ -161,7 +162,7 @@ begin
 
 	instructions : instruction_memory port map(clock => clk , address => pc_to_instruction_adder, data_out => instruction_memory_out);
 
-	
+
 	--mux 0 é o mux na entrada do banco de registradores
 	mux0_5 : mux_5 port map (entrada0 => instruction_memory_out(20 downto 16) , entrada1 => instruction_memory_out(15 downto 11), seletor=>control_regdest ,saida => mux0_5_out);
 
@@ -185,7 +186,8 @@ begin
 
 	mux1_32 : mux32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
 
-	controle : controle port map (instruction => instruction_memory_out,
+	controle : controle port map (clk => clk,
+							      instruction => instruction_memory_out,
 	 							  regdst => control_regdest,
 								  jump => control_jmp,
 								  branch => control_branch,

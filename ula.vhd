@@ -25,7 +25,7 @@ begin
 			when "0010" => resultado := std_logic_vector(signed(A)+signed(B));
 			when "0011" => resultado := std_logic_vector(signed(A)-signed(B));
 			when "0100" =>
-				if(signed(a)<signed(b)) then
+				if(signed(a) < signed(b)) then
 					resultado := x"00000001";
 				else resultado := (others => '0');
 				end if;
