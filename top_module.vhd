@@ -113,17 +113,18 @@ end component;
     );
    end component;
 
-  component ula_control is
-  port (
-    instruction_in : in std_logic_vector(5 downto 0);
-    alu_op : in std_logic_vector(3 downto 0);
-    alu_op_out : out std_logic_vector(3 downto 0)
-  );
- end component;
 
-	signal mux0topc : std_logic_vector(31 downto 0);
-	signal pctoinstructionadder : std_logic_vector(31 downto 0);
-	signal somadorout : std_logic_vector(31 downto 0);
+  component ula_control is
+  	port (
+    	instruction_in : in std_logic_vector(5 downto 0);
+    	alu_op : in std_logic_vector(3 downto 0);
+    	alu_op_out : out std_logic_vector(3 downto 0)
+  	);
+   end component;
+
+	signal mux3_to_pc : std_logic_vector(31 downto 0);
+	signal pc_to_instruction_adder : std_logic_vector(31 downto 0);
+	signal somador_out : std_logic_vector(31 downto 0);
 	signal instruction_memory_out : std_logic_vector(31 downto 0 );
 	signal regdsttomux : std_logic;
 	signal mux0_5_out : std_logic_vector(5 downto 0);
@@ -132,7 +133,7 @@ end component;
 	signal banco_reg_output2_out : std_logic_vector(31 downto 0);
 	signal data_out_reg : std_logic_vector(31 downto 0);
 	signal regwrite_out : std_logic;
-	signal extented_instruction : std_logic_vector(32 downto 0);
+	signal extented_instruction : std_logic_vector(31 downto 0);
 	signal alu_src_out : std_logic;
 	signal alu_op_out : std_logic_vector(3 downto 0);
 	signal alu_zero_out : std_logic;
@@ -140,20 +141,29 @@ end component;
 	signal alu_result_out : std_logic_vector(31 downto 0);
 	signal data_memory_out : std_logic_vector(31 downto 0);
 	signal control_mem_to_reg : std_logic; -- saida controle
-
-
+	signal control_jmp : std_logic;
+	signal control_branch : std_logic;
+	signal control_regdest : std_logic;
+	signal control_memread : std_logic;
+	signal control_alu_op : std_logic_vector(3 downto 0);
+	signal control_memwrite : std_logic;
+	signal control_alusrc : std_logic;
+	signal control_reg_write : std_logic;
+	signal branch_and_zero : std_logic;
+	signal saida_mux2 : std_logic;
+	signal somador2_out :std_logic_vector(31 downto 0);
 
 begin
 
-	pc0 : pc port map (clk => clk , entrada => mux0topc, saida => pctoinstructionadder );
+	pc0 : pc port map (clk => clk , entrada => mux3_to_pc, saida => pctoinstructionadder );
 
-	somador4 : somador port map (number1 => pctoinstructionadder, number2 => X"00000004", saida => somadorout);
+	somador4 : somador port map (number1 => pc_to_instruction_adder, number2 => X"00000004", saida => somador_out);
 
-	instructions : instruction_memory port map(clock => clk , address => pctoinstructionadder, data_out => instruction_memory_out);
+	instructions : instruction_memory port map(clock => clk , address => pc_to_instruction_adder, data_out => instruction_memory_out);
 
-	--unidade_controle : controle port map ()
+	
 	--mux 0 é o mux na entrada do banco de registradores
-	mux0_5 : mux_5 port map (entrada0 => instruction_memory_out(20 downto 16) , entrada1 => instruction_memory_out(15 downto 11), seletor=>regdsttomux ,saida => mux0_5_out);
+	mux0_5 : mux_5 port map (entrada0 => instruction_memory_out(20 downto 16) , entrada1 => instruction_memory_out(15 downto 11), seletor=>control_regdest ,saida => mux0_5_out);
 
 	bank : banco_reg port map (clock => clk,
 	 						   address1 => instruction_memory_out(25 downto 21),
@@ -162,19 +172,40 @@ begin
 							   output1 => banco_reg_output1_out,
 							   output2 => banco_reg_output2_out,
 							   write_data => data_out_reg,
-							   write_enable => regwrite_out);
+							   write_enable => control_reg_write);
 
 	--mux saida banco de registradores
-	mux0_32 : mux_32 port map (entrada0 => banco_reg_output2_out, entrada1 => extented_instruction, seletor => alu_src_out, saida => mux0_32_out);
+	mux0_32 : mux_32 port map (entrada0 => banco_reg_output2_out, entrada1 => extented_instruction, seletor => control_alusrc, saida => mux0_32_out);
 
 	alu0 : alu port map (A => banco_reg_output1_out, B => mux0_32_out, op => alu_op_out, zero => alu_zero_out , negative => alu_negative_out, result => alu_result_out );
 
-	alu_control : ula_control port map (instruction_in => instruction_memory_out(5 downto 0) , alu_op => , alu_op_out => alu_op_out);
+	alu_control : ula_control port map (instruction_in => instruction_memory_out(5 downto 0) , alu_op => control_alu_op, alu_op_out => alu_op_out);
 
-	memoria_de_dados : data_memory port map(address => alu_result_out ,data_in => banco_reg_output2_out , data_out => data_memory_out ,write_enable => , clock => clk );
+	memoria_de_dados : data_memory port map(address => alu_result_out ,data_in => banco_reg_output2_out , data_out => data_memory_out ,write_enable => control_memwrite, clock => clk );
 
 	mux1_32 : mux32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
 
-	controle : controle port map (instruction => instruction_memory_out(5 downto 0), regdst => ,jump => , )
+	controle : controle port map (instruction => instruction_memory_out,
+	 							  regdst => control_regdest,
+								  jump => control_jmp,
+								  branch => control_branch,
+								  memread => control_memread,
+								  memtoreg=> control_mem_to_reg,
+								  aluop => control_alu_op,
+								  memwrite=> control_memwrite,
+								  alusrc => control_alusrc,
+								  regwrite => control_reg_write);
+
+	 extented_instruction <= "0000000000000000" & instruction_memory_out(16 downto 0);
+
+	 branch_and_zero <= control_branch and alu_zero_out;
+
+	 mux2_32 : mux32 port map (entrada0 => somador_out , entrada1 => somador2_out , selecionador => branch_and_zero , saida => saida_mux2 );
+
+	 mux3_32 : mux32 port map (entrada0 => saida_mux2 , entrada1 =>  , selecionador => control_jmp , saida => mux3_to_pc);
+
+	 somador4_2 : somador port map (number1 => somador_out, number2 => , saida => somador2_out );
+
+
 
 end architecture;
