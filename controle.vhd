@@ -151,7 +151,7 @@ architecture  controle of controle is
                     branch <= '0';
                     aluop <= "010";
                     jump <= '1';
-                    
+
                 when "001000" => -- JR
 
                 when "000011" => -- JAL
@@ -231,7 +231,7 @@ architecture  controle of controle is
                     memread <= '0';
                     memwrite <= '0';
                     branch <= '0';
-                    aluop <= '111';
+                    aluop <= "111";
                     jump <= '0';
 
 				when "001110" => -- XORI

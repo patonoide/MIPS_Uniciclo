@@ -3,17 +3,15 @@ use	ieee.std_logic_1164.all;
 use	ieee.numeric_std.all;
 
 
-entity Agora_vai is
+entity mips is
 
 	port(
-		clk, reset : in std_logic;
-		entrada : in std_logic_vector (31 downto 0);
+		clk : in std_logic
 
-		saida : out std_logic_vector (31 downto 0)
 	);
 end entity;
 
-architecture rtl of Agora_vai is
+architecture rtl of mips is
 
 	component alu is
 		port	(
