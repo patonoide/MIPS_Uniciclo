@@ -35,7 +35,7 @@ architecture  controle of controle is
 					memread <= '1';
 					memwrite <= '0';
 					branch <= '0';
-					aluop <= "000";
+					aluop <= "110";
                     jump <= '0';
 
 				when "101011" => -- SW
@@ -46,7 +46,7 @@ architecture  controle of controle is
 					memread <= '0';
 					memwrite <= '1';
 					branch <= '0';
-					aluop <= "000";
+					aluop <= "110";
                     jump <= '0';
 
 
@@ -59,7 +59,7 @@ architecture  controle of controle is
     				memread <= '0';
     				memwrite <= '0';
     				branch <= '0';
-    				aluop <= "010";
+    				aluop <= "110";
                     jump <= '0';
 
 
@@ -71,14 +71,41 @@ architecture  controle of controle is
 					memread <= '0';
 					memwrite <= '0';
 					branch <= '0';
-					aluop <= "011";
+					aluop <= "110";
                     jump <= '0';
 
                 when "000000" =>  -- SLL
+                    regdst <= '1';
+                    alusrc <= '1';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "000"; -- others no alu control
+                    jump <= '0';
 
                 when "000010" => -- SRL
+                    regdst <= '1';
+                    alusrc <= '1';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "000"; --  others no alu control
+                    jump <= '0';
 
                 when "101010" => -- SLT
+                    regdst <= '1';
+                    alusrc <= '0';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "100";
+                    jump <= '0';
 
                 when "001010" => -- SLTI
 					regdst <= '0';
@@ -99,7 +126,7 @@ architecture  controle of controle is
                     memread <= '0';
                     memwrite <= '0';
                     branch <= '1';
-                    aluop <= "001";
+                    aluop <= "010";
                     jump <= '0';
 
 				when "000101" => -- BNE
@@ -110,19 +137,46 @@ architecture  controle of controle is
 					memread <= '0';
 					memwrite <= '0';
 					branch <= '0';
-					aluop <= "001";
+					aluop <= "010";
                     jump <= '0';
 
 
                 when "000010" => -- J
-
+                    regdst <= '0';
+                    alusrc <= '0';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "010";
+                    jump <= '1';
+                    
                 when "001000" => -- JR
 
                 when "000011" => -- JAL
 
                 when "100010" => -- SUB
+                    regdst <= '0';
+                    alusrc <= '0';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "010";
+                    jump <= '0';
 
                 when "100100" => -- AND
+                    regdst <= '0';
+                    alusrc <= '0';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "101";
+                    jump <= '0';
 
 				when "001100" => -- ANDI
 					regdst <= '0';
@@ -136,10 +190,27 @@ architecture  controle of controle is
                     jump <= '0';
 
                 when "100111" => -- NOR
-
+                    regdst <= '0';
+                    alusrc <= '0';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "011";
+                    jump <= '0';
 
 
                 when "100101" => -- OR
+                    regdst <= '0';
+                    alusrc <= '0';
+                    memtoreg <= '0';
+                    regwrite <= '1';
+                    memread <= '0';
+                    memwrite <= '0';
+                    branch <= '0';
+                    aluop <= "001";
+                    jump <= '0';
 
 				when "001101" => -- ORI
 					regdst <= '0';
@@ -149,7 +220,7 @@ architecture  controle of controle is
 					memread <= '0';
 					memwrite <= '0';
 					branch <= '0';
-					aluop <= "110";
+					aluop <= "001";
                     jump <= '0';
 
                 when "100110" => -- XOR
@@ -160,8 +231,8 @@ architecture  controle of controle is
                     memread <= '0';
                     memwrite <= '0';
                     branch <= '0';
+                    aluop <= '111';
                     jump <= '0';
-                    aluop <= ''
 
 				when "001110" => -- XORI
 					regdst <= '0';
