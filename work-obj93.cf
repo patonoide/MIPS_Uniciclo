@@ -1,34 +1,4 @@
 v 4
-file . "mux_32_2bits_sel.vhd" "00ea04baeeeea368f72e9d7ffb73f7b88f447275" "20191209190203.844":
-  entity mux_32_2sel at 1( 0) + 0 on 59;
-  architecture mux_32_2sel of mux_32_2sel at 17( 409) + 0 on 60;
-file . "ula.vhd" "345fa0ed0d3db108c25ae89c4701fb97f9792ce5" "20191015170622.930":
-  entity ula at 1( 0) + 0 on 31;
-  architecture ula of ula at 11( 159) + 0 on 32;
-file . "mux_32bits.vhd" "76440aef2eba2947480688bdac658633f9dca44e" "20191015162854.400":
-  entity mux_32 at 1( 0) + 0 on 27;
-  architecture mux_32 of mux_32 at 15( 287) + 0 on 28;
-file . "somador.vhd" "56ce1d585c42a6b4a5331f18f5bb8b37bb2c3bab" "20191015170331.613":
-  entity somador at 1( 0) + 0 on 29;
-  architecture somador of somador at 13( 257) + 0 on 30;
-file . "ROM.vhd" "9e652eaec6a83d0216db5b05e23bff4d804491e5" "20191209202435.897":
-  entity instruction_memory at 1( 0) + 0 on 71;
-  architecture instruction_memory of instruction_memory at 15( 250) + 0 on 72;
-file . "memoria_dados.vhd" "fd58b0e97f7f8d2fa958cde491c2b67fe4c9ffb8" "20191209202338.463":
-  entity data_memory at 1( 0) + 0 on 69;
-  architecture data_memory of data_memory at 15( 322) + 0 on 70;
-file . "banco_registradores.vhd" "f5f586fd848832d6e821c3518c22ae02305dbc29" "20191209171717.131":
-  entity banco_reg at 1( 0) + 0 on 55;
-  architecture banco_reg of banco_reg at 19( 474) + 0 on 56;
-file . "pc.vhd" "16be22a6f05af68309ad5ea303d77f9ea1540641" "20191106212533.928":
-  entity pc at 1( 0) + 0 on 33;
-  architecture rtl of pc at 16( 231) + 0 on 34;
-file . "top_module.vhd" "d9c2b35850cfed250df879f7e0c2d62fd03698ac" "20191209200636.468":
-  entity mips at 1( 0) + 0 on 67;
-  architecture rtl of mips at 14( 133) + 0 on 68;
-file . "test_bench_top_module.vhd" "082543db4604c32af9511a9d715a730b57535250" "20191208153210.623":
-  entity mips_tb at 2( 1) + 0 on 51;
-  architecture topmodule_tb of mips_tb at 11( 105) + 0 on 52;
-file . "test_bench.vhd" "c7bc056cf332320d601e104fb204133300609c51" "20191208153216.356":
-  entity test_bench at 2( 1) + 0 on 53;
-  architecture behavioral of test_bench at 15( 158) + 0 on 54;
+file . "top_module.vhd" "796a1f9c1c58813b133c1aa7ba79f9540198b7d7" "20191209210033.747":
+  entity mips at 1( 0) + 0 on 15;
+  architecture rtl of mips at 14( 133) + 0 on 16;

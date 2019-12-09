@@ -31,9 +31,9 @@ begin
                 elsif alu_op = "100" then
                     alu_op_out <= "0100"; -- compara
                 elsif alu_op = "000" then
-                    if instruction = "000010" then -- SRL
+                    if instruction_in = "000010" then -- SRL
                         alu_op_out <= "1000";
-                    elsif instruction = "000000" then -- SLL
+                    elsif instruction_in = "000000" then -- SLL
                         alu_op_out <= "0111";
                     end if;
 

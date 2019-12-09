@@ -38,7 +38,7 @@ architecture rtl of mips is
 	  	clk : in std_logic;
 	    instruction : in std_logic_vector(5 downto 0);
 	    regdst : out std_logic;
-	    jump : out std_logic;
+	    jump : out std_logic_vector(1 downto 0);
 	    branch : out std_logic;
 	    memread : out std_logic;
 	    memtoreg : out std_logic;
@@ -152,7 +152,7 @@ end component;
 	signal alu_result_out : std_logic_vector(31 downto 0);
 	signal data_memory_out : std_logic_vector(31 downto 0);
 	signal control_mem_to_reg : std_logic; -- saida controle
-	signal control_jmp : std_logic;
+	signal control_jmp : std_logic_vector(1 downto 0);
 	signal control_branch : std_logic;
 	signal control_regdest : std_logic;
 	signal control_memread : std_logic;
@@ -167,6 +167,9 @@ end component;
 	signal jump_adress_after_add : std_logic_vector(31 downto 0);
 	signal valor4 : std_logic_vector(31 downto 0);
 	signal shift_left0 : std_logic_vector(31 downto 0);
+	signal jal : std_logic_vector(31 downto 0);
+	signal jr : std_logic_vector(31 downto 0);
+
 
 begin
 
@@ -224,7 +227,17 @@ begin
 
 	 mux2_32 : mux_32 port map (entrada0 => somador_out , entrada1 => somador2_out , seletor => branch_and_zero , saida => saida_mux2 );
 
-	 mux3_32 : mux_32 port map (entrada0 => saida_mux2 , entrada1 => jump_adress_after_add , seletor => control_jmp , saida => mux3_to_pc);
+	 jr <= banco_reg_output1_out;
+
+	 jal <= instruction_memory_out(24 downto 0) & "0000000";
+
+	 mux3_32_2bits : mux_32_2sel port map (entrada0 => saida_mux2,
+	 							 entrada1 => jump_adress_after_add,
+								 entrada2 => jr,
+								 entrada3 => jal,
+								 seletor  => control_jmp,
+								 saida    => mux3_to_pc
+				);
 
 	 somador4_2 : somador port map (number1 => somador_out, number2 => shift_left0, saida => somador2_out ); -- somador antes do mux
 
