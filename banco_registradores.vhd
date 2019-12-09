@@ -5,9 +5,9 @@ USE IEEE.numeric_std.all;
 entity banco_reg is
   port (
     clock : in std_logic;
-    address1 : in std_logic_vector(5 downto 0);
-    address2 : in std_logic_vector(5 downto 0);
-    write_address : in std_logic_vector(5 downto 0);
+    address1 : in std_logic_vector(4 downto 0);
+    address2 : in std_logic_vector(4 downto 0);
+    write_address : in std_logic_vector(4 downto 0);
     output1 : out std_logic_vector(31 downto 0);
     output2 : out std_logic_vector(31 downto 0);
     write_data : in std_logic_vector(31 downto 0);

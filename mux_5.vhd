@@ -4,10 +4,10 @@ USE IEEE.numeric_std.all;
 
 entity mux_5 is
   port (
-    entrada0 : in std_logic_vector(5 downto 0);
-    entrada1 : in std_logic_vector(5 downto 0);
+    entrada0 : in std_logic_vector(4 downto 0);
+    entrada1 : in std_logic_vector(4 downto 0);
     seletor : in std_logic;
-    saida : out std_logic_vector(5 downto 0)
+    saida : out std_logic_vector(4 downto 0)
 
   );
 end entity;

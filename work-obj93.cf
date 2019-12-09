@@ -5,15 +5,15 @@ file . "test_bench.vhd" "c7bc056cf332320d601e104fb204133300609c51" "201912081532
 file . "test_bench_top_module.vhd" "082543db4604c32af9511a9d715a730b57535250" "20191208153210.623":
   entity mips_tb at 2( 1) + 0 on 51;
   architecture topmodule_tb of mips_tb at 11( 105) + 0 on 52;
-file . "top_module.vhd" "99c5c561ccc0b60f1654c04e98ea8e0af0f4b60b" "20191113164514.082":
-  entity agora_vai at 1( 0) + 0 on 47;
-  architecture rtl of agora_vai at 16( 238) + 0 on 48;
+file . "top_module.vhd" "fdd98b927c16d810d64d51a1eb193b0abf5e2221" "20191209172814.593":
+  entity mips at 1( 0) + 0 on 57;
+  architecture rtl of mips at 14( 133) + 0 on 58;
 file . "pc.vhd" "16be22a6f05af68309ad5ea303d77f9ea1540641" "20191106212533.928":
   entity pc at 1( 0) + 0 on 33;
   architecture rtl of pc at 16( 231) + 0 on 34;
-file . "banco_registradores.vhd" "688561340ac537b903d4724ebb1c640d015865e3" "20191113120758.028":
-  entity banco_reg at 1( 0) + 0 on 35;
-  architecture banco_reg of banco_reg at 19( 474) + 0 on 36;
+file . "banco_registradores.vhd" "f5f586fd848832d6e821c3518c22ae02305dbc29" "20191209171717.131":
+  entity banco_reg at 1( 0) + 0 on 55;
+  architecture banco_reg of banco_reg at 19( 474) + 0 on 56;
 file . "memoria_dados.vhd" "9eda50ed9577f5838d1653c1df5a109ecb1268d1" "20191009164615.436":
   entity data_memory at 1( 0) + 0 on 17;
   architecture data_memory of data_memory at 15( 323) + 0 on 18;

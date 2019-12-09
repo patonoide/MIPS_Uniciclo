@@ -71,9 +71,9 @@ architecture rtl of mips is
    component banco_reg is
      port (
        clock : in std_logic;
-       address1 : in std_logic_vector(5 downto 0);
-       address2 : in std_logic_vector(5 downto 0);
-       write_address : in std_logic_vector(5 downto 0);
+       address1 : in std_logic_vector(4 downto 0);
+       address2 : in std_logic_vector(4 downto 0);
+       write_address : in std_logic_vector(4 downto 0);
        output1 : out std_logic_vector(31 downto 0);
        output2 : out std_logic_vector(31 downto 0);
        write_data : in std_logic_vector(31 downto 0);
@@ -104,10 +104,10 @@ end component;
 
   component mux_5 is
     port (
-      entrada0 : in std_logic_vector(5 downto 0);
-      entrada1 : in std_logic_vector(5 downto 0);
+      entrada0 : in std_logic_vector(4 downto 0);
+      entrada1 : in std_logic_vector(4 downto 0);
       seletor : in std_logic;
-      saida : out std_logic_vector(5 downto 0)
+      saida : out std_logic_vector(4 downto 0)
 
     );
    end component;
@@ -126,7 +126,7 @@ end component;
 	signal somador_out : std_logic_vector(31 downto 0);
 	signal instruction_memory_out : std_logic_vector(31 downto 0 );
 	signal regdsttomux : std_logic;
-	signal mux0_5_out : std_logic_vector(5 downto 0);
+	signal mux0_5_out : std_logic_vector(4 downto 0);
 	signal mux0_32_out : std_logic_vector(31 downto 0);
 	signal banco_reg_output1_out : std_logic_vector(31 downto 0);
 	signal banco_reg_output2_out : std_logic_vector(31 downto 0);
@@ -149,14 +149,20 @@ end component;
 	signal control_alusrc : std_logic;
 	signal control_reg_write : std_logic;
 	signal branch_and_zero : std_logic;
-	signal saida_mux2 : std_logic;
+	signal saida_mux2 : std_logic_vector(31 downto 0);
 	signal somador2_out :std_logic_vector(31 downto 0);
+	signal jump_adress_before_add : std_logic_vector(31 downto 0);
+	signal jump_adress_after_add : std_logic_vector(31 downto 0);
+	signal valor4 : std_logic_vector(31 downto 0);
+	signal shift_left0 : std_logic_vector(31 downto 0);
 
 begin
 
-	pc0 : pc port map (clk => clk , entrada => mux3_to_pc, saida => pctoinstructionadder );
+	valor4 <= "00000000000000000000000000000100";
 
-	somador4 : somador port map (number1 => pc_to_instruction_adder, number2 => X"00000004", saida => somador_out);
+	pc0 : pc port map (clk => clk , entrada => mux3_to_pc, saida => pc_to_instruction_adder );
+
+	somador4 : somador port map (number1 => pc_to_instruction_adder, number2 => valor4, saida => somador_out);
 
 	instructions : instruction_memory port map(clock => clk , address => pc_to_instruction_adder, data_out => instruction_memory_out);
 
@@ -182,10 +188,10 @@ begin
 
 	memoria_de_dados : data_memory port map(address => alu_result_out ,data_in => banco_reg_output2_out , data_out => data_memory_out ,write_enable => control_memwrite, clock => clk );
 
-	mux1_32 : mux32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
+	mux1_32 : mux_32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
 
-	controle : controle port map (clk => clk,
-							      instruction => instruction_memory_out,
+	controle0 : controle port map (clk => clk,
+							      instruction => instruction_memory_out(5 downto 0),
 	 							  regdst => control_regdest,
 								  jump => control_jmp,
 								  branch => control_branch,
@@ -200,12 +206,16 @@ begin
 
 	 branch_and_zero <= control_branch and alu_zero_out;
 
-	 mux2_32 : mux32 port map (entrada0 => somador_out , entrada1 => somador2_out , selecionador => branch_and_zero , saida => saida_mux2 );
+	 jump_adress_before_add <= pc_to_instruction_adder(31 downto 28) & instruction_memory_out(26 downto 0) & "00";
 
-	 mux3_32 : mux32 port map (entrada0 => saida_mux2 , entrada1 =>  , selecionador => control_jmp , saida => mux3_to_pc);
+	 shift_left0 <= extented_instruction(29 downto 0) & "00";
 
-	 somador4_2 : somador port map (number1 => somador_out, number2 => , saida => somador2_out );
+	 mux2_32 : mux_32 port map (entrada0 => somador_out , entrada1 => somador2_out , seletor => branch_and_zero , saida => saida_mux2 );
 
+	 mux3_32 : mux_32 port map (entrada0 => saida_mux2 , entrada1 => jump_adress_after_add , seletor => control_jmp , saida => mux3_to_pc);
 
+	 somador4_2 : somador port map (number1 => somador_out, number2 => shift_left0, saida => somador2_out ); -- somador antes do mux
+
+	 somador4_3 : somador port map(number1 => jump_adress_before_add , number2 => valor4, saida => jump_adress_after_add);
 
 end architecture;
