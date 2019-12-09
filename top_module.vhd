@@ -50,6 +50,18 @@ architecture rtl of mips is
 	  );
   end component;
 
+  component mux_32_2sel is
+    port (
+      entrada0 : in std_logic_vector(31 downto 0);
+      entrada1 : in std_logic_vector(31 downto 0);
+      entrada2 : in std_logic_vector(31 downto 0);
+      entrada3 : in std_logic_vector(31 downto 0);
+      seletor : in std_logic_vector(1 downto 0);
+      saida : out std_logic_vector(31 downto 0)
+
+    );
+end component;
+
   component mux_32 is
     port (
       entrada0 : in std_logic_vector(31 downto 0);
@@ -88,7 +100,7 @@ architecture rtl of mips is
 
       data_out : out std_logic_vector(31 downto 0);
 
-      address : in std_logic_vector(31 downto 0)
+      address : in std_logic_vector(6 downto 0)
     );
 end component;
 
@@ -98,7 +110,7 @@ end component;
 	  write_enable : in std_logic;
 	  data_out : out std_logic_vector(31 downto 0);
 	  data_in : in std_logic_vector(31 downto 0);
-   	  address : in std_logic_vector(31 downto 0)
+   	  address : in std_logic_vector(6 downto 0)
      );
   end component;
 
@@ -164,7 +176,7 @@ begin
 
 	somador4 : somador port map (number1 => pc_to_instruction_adder, number2 => valor4, saida => somador_out);
 
-	instructions : instruction_memory port map(clock => clk , address => pc_to_instruction_adder, data_out => instruction_memory_out);
+	instructions : instruction_memory port map(clock => clk , address => pc_to_instruction_adder(8 downto 2), data_out => instruction_memory_out);
 
 
 	--mux 0 é o mux na entrada do banco de registradores
@@ -186,7 +198,7 @@ begin
 
 	alu_control : ula_control port map (instruction_in => instruction_memory_out(5 downto 0) , alu_op => control_alu_op, alu_op_out => alu_op_out);
 
-	memoria_de_dados : data_memory port map(address => alu_result_out ,data_in => banco_reg_output2_out , data_out => data_memory_out ,write_enable => control_memwrite, clock => clk );
+	memoria_de_dados : data_memory port map(address => alu_result_out(8 downto 2) ,data_in => banco_reg_output2_out , data_out => data_memory_out ,write_enable => control_memwrite, clock => clk );
 
 	mux1_32 : mux_32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
 

@@ -8,7 +8,7 @@ entity data_memory is
     write_enable : in std_logic;
     data_out : out std_logic_vector(31 downto 0);
     data_in : in std_logic_vector(31 downto 0);
-    address : in std_logic_vector(31 downto 0)
+    address : in std_logic_vector(6 downto 0)
   );
 end entity;
 
@@ -154,7 +154,7 @@ begin
     begin
         if rising_edge(clock) then
             if (write_enable = '1') then
-                data_mem(to_integer(unsigned(address(8 downto 0)))) <= data_in;
+                data_mem(to_integer(unsigned(address))) <= data_in;
             else
                 data_out <= data_mem(to_integer(unsigned(address)));
             end if;
