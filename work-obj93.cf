@@ -11,12 +11,12 @@ file . "mux_32bits.vhd" "76440aef2eba2947480688bdac658633f9dca44e" "201910151628
 file . "somador.vhd" "56ce1d585c42a6b4a5331f18f5bb8b37bb2c3bab" "20191015170331.613":
   entity somador at 1( 0) + 0 on 29;
   architecture somador of somador at 13( 257) + 0 on 30;
-file . "ROM.vhd" "982a1d0874f311e520bd53c361802051b9113ef1" "20191209191231.618":
-  entity instruction_memory at 1( 0) + 0 on 63;
-  architecture instruction_memory of instruction_memory at 15( 250) + 0 on 64;
-file . "memoria_dados.vhd" "de7291617dc4883ebe6fc31eccda68021153e0aa" "20191209191337.127":
-  entity data_memory at 1( 0) + 0 on 65;
-  architecture data_memory of data_memory at 15( 322) + 0 on 66;
+file . "ROM.vhd" "9e652eaec6a83d0216db5b05e23bff4d804491e5" "20191209202435.897":
+  entity instruction_memory at 1( 0) + 0 on 71;
+  architecture instruction_memory of instruction_memory at 15( 250) + 0 on 72;
+file . "memoria_dados.vhd" "fd58b0e97f7f8d2fa958cde491c2b67fe4c9ffb8" "20191209202338.463":
+  entity data_memory at 1( 0) + 0 on 69;
+  architecture data_memory of data_memory at 15( 322) + 0 on 70;
 file . "banco_registradores.vhd" "f5f586fd848832d6e821c3518c22ae02305dbc29" "20191209171717.131":
   entity banco_reg at 1( 0) + 0 on 55;
   architecture banco_reg of banco_reg at 19( 474) + 0 on 56;
