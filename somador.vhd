@@ -11,11 +11,11 @@ entity somador is
 end entity;
 
 architecture  somador of somador is
-    signal temp : integer;
+    signal temp : unsigned(31 downto 0);
 begin
 
-        temp <= to_integer(unsigned(number1)) + to_integer(unsigned(number2));
-        saida <= std_logic_vector(to_unsigned(temp, 32));
-    
+        temp <= unsigned(number1) + unsigned(number2);
+        saida <= std_logic_vector(temp);
+
 
 end architecture;

@@ -6,8 +6,18 @@ use	ieee.numeric_std.all;
 entity mips is
 
 	port(
-		clk : in std_logic
-
+		clk : in std_logic;
+		instruction : out std_logic_vector(5 downto 0);
+	    regdst : out std_logic;
+	    jump : out std_logic_vector(1 downto 0);
+	    branch : out std_logic;
+	    memread : out std_logic;
+	    memtoreg : out std_logic;
+	    aluop : out std_logic_vector(2 downto 0);
+	    memwrite : out std_logic;
+	    alusrc : out std_logic;
+	    regwrite : out std_logic;
+		reset_pc : in std_logic
 	);
 end entity;
 
@@ -28,7 +38,7 @@ architecture rtl of mips is
 		port(
 			clk : in std_logic;
 			entrada : in std_logic_vector (31 downto 0);
-
+			reset : in std_logic;
 			saida : out std_logic_vector (31 downto 0)
 		);
 	end component;
@@ -96,7 +106,7 @@ end component;
 
   component instruction_memory is
     port (
-      clock : in std_logic;
+
 
       data_out : out std_logic_vector(31 downto 0);
 
@@ -106,7 +116,7 @@ end component;
 
   component data_memory is
     port (
-	  clock : in std_logic;
+
 	  write_enable : in std_logic;
 	  data_out : out std_logic_vector(31 downto 0);
 	  data_in : in std_logic_vector(31 downto 0);
@@ -145,15 +155,15 @@ end component;
 	signal pc_to_instruction_adder : std_logic_vector(31 downto 0);
 	signal somador_out : std_logic_vector(31 downto 0);
 	signal instruction_memory_out : std_logic_vector(31 downto 0 );
-	signal regdsttomux : std_logic;
+
 	signal mux0_5_out : std_logic_vector(4 downto 0);
 	signal mux0_32_out : std_logic_vector(31 downto 0);
 	signal banco_reg_output1_out : std_logic_vector(31 downto 0);
 	signal banco_reg_output2_out : std_logic_vector(31 downto 0);
 	signal data_out_reg : std_logic_vector(31 downto 0);
-	signal regwrite_out : std_logic;
+
 	signal extented_instruction : std_logic_vector(31 downto 0);
-	signal alu_src_out : std_logic;
+
 	signal alu_op_out : std_logic_vector(3 downto 0);
 	signal alu_zero_out : std_logic;
 	signal alu_negative_out : std_logic;
@@ -184,11 +194,11 @@ begin
 
 	valor4 <= "00000000000000000000000000000100";
 
-	pc0 : pc port map (clk => clk , entrada => mux3_to_pc, saida => pc_to_instruction_adder );
+	pc0 : pc port map (clk => clk , reset => reset_pc,entrada => mux3_to_pc, saida => pc_to_instruction_adder );
 
 	somador4 : somador port map (number1 => pc_to_instruction_adder, number2 => valor4, saida => somador_out);
 
-	instructions : instruction_memory port map(clock => clk , address => pc_to_instruction_adder(8 downto 2), data_out => instruction_memory_out);
+	instructions : instruction_memory port map( address => pc_to_instruction_adder(8 downto 2), data_out => instruction_memory_out);
 
 
 	--mux 0 é o mux na entrada do banco de registradores
@@ -210,12 +220,12 @@ begin
 
 	alu_control : ula_control port map (instruction_in => instruction_memory_out(5 downto 0) , alu_op => control_alu_op, alu_op_out => alu_op_out, jr => alu_jr_to_jr);
 
-	memoria_de_dados : data_memory port map(address => alu_result_out(8 downto 2) ,data_in => banco_reg_output2_out , data_out => data_memory_out ,write_enable => control_memwrite, clock => clk );
+	memoria_de_dados : data_memory port map(address => alu_result_out(8 downto 2) ,data_in => banco_reg_output2_out , data_out => data_memory_out, write_enable => control_memwrite );
 
 	mux1_32 : mux_32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
 
 	controle0 : controle port map (clk => clk,
-							      instruction => instruction_memory_out(5 downto 0),
+							      instruction => instruction_memory_out(31 downto 26),
 	 							  regdst => control_regdest,
 								  jump => control_jmp,
 								  branch => control_branch,
@@ -226,11 +236,23 @@ begin
 								  alusrc => control_alusrc,
 								  regwrite => control_reg_write);
 
-	 extented_instruction <= "0000000000000000" & instruction_memory_out(16 downto 0);
+	 -- expondo os sinais de controle
+	 instruction <= instruction_memory_out(31  downto 26);
+	 regdst <= control_regdest;
+	 jump <= control_jmp;
+	 branch <= control_branch;
+	 memread <= control_memread;
+	 memtoreg <= control_mem_to_reg;
+	 aluop <= control_alu_op;
+	 memwrite <= control_memwrite;
+	 alusrc <= control_alusrc;
+	 regwrite <= control_reg_write;
+
+	 extented_instruction <= "0000000000000000" & instruction_memory_out(15 downto 0);
 
 	 branch_and_zero <= control_branch and alu_zero_out;
 
-	 jump_adress_before_add <= pc_to_instruction_adder(31 downto 28) & instruction_memory_out(26 downto 0) & "00";
+	 jump_adress_before_add <= pc_to_instruction_adder(31 downto 29) & instruction_memory_out(26 downto 0) & "00";
 
 	 shift_left0 <= extented_instruction(29 downto 0) & "00";
 

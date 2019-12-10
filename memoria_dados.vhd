@@ -4,7 +4,7 @@ USE IEEE.numeric_std.all;
 
 entity data_memory is
   port (
-    clock : in std_logic;
+
     write_enable : in std_logic;
     data_out : out std_logic_vector(31 downto 0);
     data_in : in std_logic_vector(31 downto 0);
@@ -37,9 +37,9 @@ architecture  data_memory of data_memory is
 
 
 begin
-    principal : process(clock)
+    principal : process(write_enable, data_in, address)
     begin
-        if rising_edge(clock) then
+
             if (write_enable = '1') then
                 data_mem(to_integer(unsigned(address))) <= data_in;
             else
@@ -47,7 +47,7 @@ begin
             end if;
 
 
-        end if;
+
     end process;
 
 end architecture;

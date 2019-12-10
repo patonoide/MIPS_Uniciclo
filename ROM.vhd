@@ -4,7 +4,7 @@ USE IEEE.numeric_std.all;
 
 entity instruction_memory is
   port (
-    clock : in std_logic;
+
 
     data_out : out std_logic_vector(31 downto 0);
 
@@ -16,11 +16,11 @@ architecture  instruction_memory of instruction_memory is
     type mem is array ( 0 to 127) of std_logic_vector(31 downto 0);
        signal data_mem : mem := (
                                        x"22300001",
-                                       x"efefefef",
-                                       x"02146545",
-                                       x"85781546",
-                                       x"69782314",
-                                       x"25459789",
+                                       x"00000000",
+                                       x"22300001",
+                                       x"00000000",
+                                       x"00000000",
+                                       x"00000000",
                                        x"245a65c5",
                                        x"ac5b4b5b",
                                        x"ebebebeb",
@@ -37,11 +37,9 @@ architecture  instruction_memory of instruction_memory is
 
 
 begin
-    principal : process(clock)
-    begin
-        if rising_edge(clock) then
+
+
                 data_out <= data_mem(to_integer(unsigned(address)));
-        end if;
-    end process;
+
 
 end architecture;

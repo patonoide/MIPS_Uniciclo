@@ -1,13 +1,46 @@
 v 4
-file . "controle.vhd" "169bb71376ced981beaba28d02443fca4fa45152" "20191210035737.243":
-  entity controle at 1( 0) + 0 on 25;
-  architecture controle of controle at 21( 459) + 0 on 26;
-file . "test_bench_top_module.vhd" "082543db4604c32af9511a9d715a730b57535250" "20191209212058.545":
-  entity mips_tb at 2( 1) + 0 on 17;
-  architecture topmodule_tb of mips_tb at 11( 105) + 0 on 18;
-file . "top_module.vhd" "7e239a9a2a3663b558a3dec8424b7a0df6930446" "20191210035640.527":
-  entity mips at 1( 0) + 0 on 23;
-  architecture rtl of mips at 14( 133) + 0 on 24;
-file . "alu_control.vhd" "0bfc2de6a3e921a55721f99a4c857105f24a2aa2" "20191210034024.358":
-  entity ula_control at 1( 0) + 0 on 21;
-  architecture behavioral of ula_control at 13( 276) + 0 on 22;
+file . "ula.vhd" "79e6e2d693eda652a14e8666ca1517b080c2a362" "20191210224705.833":
+  entity alu at 1( 0) + 0 on 413;
+  architecture behavioral of alu at 15( 295) + 0 on 414;
+file . "test_bench.vhd" "22d4e8ea01a547eafb68b995a55494c6532bcfd6" "20191210224705.827":
+  entity test_bench at 2( 1) + 0 on 409;
+  architecture behavioral of test_bench at 24( 524) + 0 on 410;
+file . "somador.vhd" "108dd1ecca1adbaee4fbdd339a876caf8963cbbc" "20191210224705.825":
+  entity somador at 1( 0) + 0 on 407;
+  architecture somador of somador at 13( 257) + 0 on 408;
+file . "ROM.vhd" "39108df05c7db67d225e0aa7a08c25df94fe6772" "20191210224705.823":
+  entity instruction_memory at 1( 0) + 0 on 405;
+  architecture instruction_memory of instruction_memory at 15( 225) + 0 on 406;
+file . "pc.vhd" "489c1620bff41003971a099fed8bd058ec6bfa81" "20191210224705.819":
+  entity pc at 1( 0) + 0 on 403;
+  architecture rtl of pc at 16( 247) + 0 on 404;
+file . "mux_5.vhd" "37824b84576136a26e68d2c2592325db6e40d064" "20191210224705.817":
+  entity mux_5 at 1( 0) + 0 on 401;
+  architecture mux_5 of mux_5 at 15( 283) + 0 on 402;
+file . "mux_32bits.vhd" "76440aef2eba2947480688bdac658633f9dca44e" "20191210224705.815":
+  entity mux_32 at 1( 0) + 0 on 399;
+  architecture mux_32 of mux_32 at 15( 287) + 0 on 400;
+file . "mux_32_2bits_sel.vhd" "00ea04baeeeea368f72e9d7ffb73f7b88f447275" "20191210224705.813":
+  entity mux_32_2sel at 1( 0) + 0 on 397;
+  architecture mux_32_2sel of mux_32_2sel at 17( 409) + 0 on 398;
+file . "memoria_dados.vhd" "491e21740ae67feaf8df74bc9772fa62c9a8b59f" "20191210224705.812":
+  entity data_memory at 1( 0) + 0 on 395;
+  architecture data_memory of data_memory at 15( 297) + 0 on 396;
+file . "jump_control.vhd" "c9a318b57e53c4da5e04151d9cf449dad4aafd2e" "20191210224705.810":
+  entity jump_mux_control at 1( 0) + 0 on 393;
+  architecture behavioral of jump_mux_control at 12( 224) + 0 on 394;
+file . "banco_registradores.vhd" "f5f586fd848832d6e821c3518c22ae02305dbc29" "20191210224705.805":
+  entity banco_reg at 1( 0) + 0 on 389;
+  architecture banco_reg of banco_reg at 19( 474) + 0 on 390;
+file . "controle.vhd" "169bb71376ced981beaba28d02443fca4fa45152" "20191210224705.808":
+  entity controle at 1( 0) + 0 on 391;
+  architecture controle of controle at 21( 459) + 0 on 392;
+file . "test_bench_top_module.vhd" "b011143aece82690dbfc84a1a9661d5c4831a53b" "20191210185739.530":
+  entity mips_tb at 2( 1) + 0 on 173;
+  architecture topmodule_tb of mips_tb at 10( 104) + 0 on 174;
+file . "top_module.vhd" "e6577085e0bec3878627329fbcf437d1f47bffd0" "20191210224705.830":
+  entity mips at 1( 0) + 0 on 411;
+  architecture rtl of mips at 24( 512) + 0 on 412;
+file . "alu_control.vhd" "0bfc2de6a3e921a55721f99a4c857105f24a2aa2" "20191210224705.799":
+  entity ula_control at 1( 0) + 0 on 387;
+  architecture behavioral of ula_control at 13( 276) + 0 on 388;

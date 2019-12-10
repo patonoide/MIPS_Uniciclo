@@ -34,6 +34,7 @@ begin
 			when "0111" => resultado := std_logic_vector(shift_left(unsigned(B), to_integer(unsigned(A))));
 			when "1000" => resultado := std_logic_vector(signed(B) srl to_integer(unsigned(A)));
 			when "1001" => resultado := std_logic_vector(signed(B) srl to_integer(unsigned(A)));
+			when others => resultado := a;
 		end case;
 
 		if resultado = x"00000000" then
