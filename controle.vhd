@@ -141,7 +141,7 @@ architecture  controle of controle is
                     aluop <= "010";
                     jump <= "01";
 
-                
+
 
                 when "000011" => -- JAL
                     regdst <= '0';
@@ -154,7 +154,7 @@ architecture  controle of controle is
                     aluop <= "010";
                     jump <= "11";
 
-                when "000000" => -- tipo R
+                when others => -- tipo R
                     regdst <= '1'; -- X
                     alusrc <= '0';
                     memtoreg <= '0'; -- X
