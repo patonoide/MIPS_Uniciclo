@@ -15,10 +15,10 @@ end entity;
 architecture  instruction_memory of instruction_memory is
     type mem is array ( 0 to 127) of std_logic_vector(31 downto 0);
        signal data_mem : mem := (
-                                       x"22300001",
-                                       x"00000000",
-                                       x"22300001",
-                                       x"00000000",
+                                       x"2230000a",
+                                       x"02108020",
+                                       x"22130001",
+                                       x"02139024",
                                        x"00000000",
                                        x"00000000",
                                        x"245a65c5",

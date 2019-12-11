@@ -15,21 +15,12 @@ end entity;
 architecture  data_memory of data_memory is
     type mem is array ( 0 to 127) of std_logic_vector(31 downto 0);
        signal data_mem : mem := (
-                                        x"abababab",
-										x"efefefef",
-										x"02146545",
-										x"85781546",
-										x"69782314",
-										x"25459789",
-										x"245a65c5",
-										x"ac5b4b5b",
-										x"ebebebeb",
-										x"cacacaca",
-										x"ecececec",
-										x"facfcafc",
-										x"ecaecaaa",
-										x"dadadeac",
-										others => (others => '1')
+                                        x"00000000",
+										x"00000000",
+										x"00000000",
+										x"00000000",
+										x"00000000",
+										others => (others => '0')
        );
 
 

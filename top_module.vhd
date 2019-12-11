@@ -202,7 +202,7 @@ begin
 
 
 	--mux 0 é o mux na entrada do banco de registradores
-	mux0_5 : mux_5 port map (entrada0 => instruction_memory_out(20 downto 16) , entrada1 => instruction_memory_out(15 downto 11), seletor=>control_regdest ,saida => mux0_5_out);
+	mux_banco_registradores : mux_5 port map (entrada0 => instruction_memory_out(20 downto 16) , entrada1 => instruction_memory_out(15 downto 11), seletor=>control_regdest ,saida => mux0_5_out);
 
 	bank : banco_reg port map (clock => clk,
 	 						   address1 => instruction_memory_out(25 downto 21),
@@ -214,7 +214,7 @@ begin
 							   write_enable => control_reg_write);
 
 	--mux saida banco de registradores
-	mux0_32 : mux_32 port map (entrada0 => banco_reg_output2_out, entrada1 => extented_instruction, seletor => control_alusrc, saida => mux0_32_out);
+	mux_saida_banco_registradores : mux_32 port map (entrada0 => banco_reg_output2_out, entrada1 => extented_instruction, seletor => control_alusrc, saida => mux0_32_out);
 
 	alu0 : alu port map (A => banco_reg_output1_out, B => mux0_32_out, op => alu_op_out, zero => alu_zero_out , negative => alu_negative_out, result => alu_result_out );
 
@@ -222,7 +222,7 @@ begin
 
 	memoria_de_dados : data_memory port map(address => alu_result_out(8 downto 2) ,data_in => banco_reg_output2_out , data_out => data_memory_out, write_enable => control_memwrite );
 
-	mux1_32 : mux_32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
+	mux_saida_memoria_de_dados : mux_32 port map (entrada0 => alu_result_out , entrada1 => data_memory_out , seletor => control_mem_to_reg , saida => data_out_reg);
 
 	controle0 : controle port map (clk => clk,
 							      instruction => instruction_memory_out(31 downto 26),
@@ -256,7 +256,7 @@ begin
 
 	 shift_left0 <= extented_instruction(29 downto 0) & "00";
 
-	 mux2_32 : mux_32 port map (entrada0 => somador_out , entrada1 => somador2_out , seletor => branch_and_zero , saida => saida_mux2 );
+	 mux_seleciona_pc : mux_32 port map (entrada0 => somador_out , entrada1 => somador2_out , seletor => branch_and_zero , saida => saida_mux2 );
 
 	 jr <= banco_reg_output1_out;
 
