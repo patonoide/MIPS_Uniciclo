@@ -252,7 +252,7 @@ begin
 
 	 branch_and_zero <= control_branch and alu_zero_out;
 
-	 jump_adress_before_add <= pc_to_instruction_adder(31 downto 29) & instruction_memory_out(26 downto 0) & "00";
+	 jump_adress_before_add <= pc_to_instruction_adder(31 downto 28) & instruction_memory_out(25 downto 0) & "00";
 
 	 shift_left0 <= extented_instruction(29 downto 0) & "00";
 
@@ -279,6 +279,6 @@ begin
 
 	 somador4_2 : somador port map (number1 => somador_out, number2 => shift_left0, saida => somador2_out ); -- somador antes do mux
 
-	 somador4_3 : somador port map(number1 => jump_adress_before_add , number2 => valor4, saida => jump_adress_after_add);
+	 somador4_3 : somador port map(number1 => jump_adress_before_add , number2 => "00000000000000000000000000000000", saida => jump_adress_after_add);
 
 end architecture;
