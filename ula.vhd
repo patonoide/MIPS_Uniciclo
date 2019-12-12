@@ -32,8 +32,8 @@ begin
 			when "0101" => resultado := a nor b;
 			when "0110" => resultado := a xor b;
 			when "0111" => resultado := std_logic_vector(shift_left(unsigned(B), to_integer(unsigned(A))));
-			when "1000" => resultado := std_logic_vector(signed(B) srl to_integer(unsigned(A)));
-			when "1001" => resultado := std_logic_vector(signed(B) srl to_integer(unsigned(A)));
+			when "1000" => resultado := std_logic_vector(shift_right(unsigned(B), to_integer(unsigned(A))));
+			when "1001" => resultado := std_logic_vector(shift_right(signed(B), to_integer(unsigned(A))));
 			when others => resultado := a;
 		end case;
 

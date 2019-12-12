@@ -35,6 +35,8 @@ begin
                 elsif alu_op = "000" then -- outros
                     if instruction_in = "000010" then -- SRL
                         alu_op_out <= "1000";
+                    elsif instruction_in = "000011" then -- SRA
+                        alu_op_out <= "1001";
                     elsif instruction_in = "000000" then -- SLL
                         alu_op_out <= "0111";
                     elsif instruction_in = "100000" then -- add

@@ -1,49 +1,49 @@
 v 4
-file . "ula.vhd" "79e6e2d693eda652a14e8666ca1517b080c2a362" "20191212212225.641":
-  entity alu at 1( 0) + 0 on 1901;
-  architecture behavioral of alu at 15( 295) + 0 on 1902;
-file . "test_bench.vhd" "8033d7e22ef95b229c4d2bf6d7bddc27d9a57849" "20191212212225.635":
-  entity test_bench at 2( 1) + 0 on 1897;
-  architecture behavioral of test_bench at 24( 543) + 0 on 1898;
-file . "somador.vhd" "108dd1ecca1adbaee4fbdd339a876caf8963cbbc" "20191212212225.632":
-  entity somador at 1( 0) + 0 on 1893;
-  architecture somador of somador at 13( 257) + 0 on 1894;
-file . "ROM.vhd" "9ec07308c4ff9796054882eab17c6580132ca1e5" "20191212212225.630":
-  entity instruction_memory at 1( 0) + 0 on 1891;
-  architecture instruction_memory of instruction_memory at 15( 225) + 0 on 1892;
-file . "pc.vhd" "489c1620bff41003971a099fed8bd058ec6bfa81" "20191212212225.628":
-  entity pc at 1( 0) + 0 on 1889;
-  architecture rtl of pc at 16( 247) + 0 on 1890;
-file . "mux_5.vhd" "37824b84576136a26e68d2c2592325db6e40d064" "20191212212225.625":
-  entity mux_5 at 1( 0) + 0 on 1887;
-  architecture mux_5 of mux_5 at 15( 283) + 0 on 1888;
-file . "mux_32bits.vhd" "76440aef2eba2947480688bdac658633f9dca44e" "20191212212225.623":
-  entity mux_32 at 1( 0) + 0 on 1885;
-  architecture mux_32 of mux_32 at 15( 287) + 0 on 1886;
-file . "mux_32_2bits_sel.vhd" "00ea04baeeeea368f72e9d7ffb73f7b88f447275" "20191212212225.620":
-  entity mux_32_2sel at 1( 0) + 0 on 1883;
-  architecture mux_32_2sel of mux_32_2sel at 17( 409) + 0 on 1884;
-file . "memoria_dados.vhd" "a810521854e3b391d3c100b1eed1469f6f6ae62d" "20191212212225.616":
-  entity data_memory at 1( 0) + 0 on 1881;
-  architecture data_memory of data_memory at 15( 297) + 0 on 1882;
-file . "jump_control.vhd" "c9a318b57e53c4da5e04151d9cf449dad4aafd2e" "20191212212225.611":
-  entity jump_mux_control at 1( 0) + 0 on 1879;
-  architecture behavioral of jump_mux_control at 12( 224) + 0 on 1880;
-file . "banco_registradores.vhd" "24c6a7a4923ebd95b5b752d8212e1f2db6be65c4" "20191212212225.592":
-  entity banco_reg at 1( 0) + 0 on 1873;
-  architecture banco_reg of banco_reg at 19( 474) + 0 on 1874;
-file . "controle.vhd" "fe2ea8a296acdbe82df5be28de33593816661521" "20191212212225.607":
-  entity controle at 1( 0) + 0 on 1877;
-  architecture controle of controle at 21( 478) + 0 on 1878;
-file . "test_bench_top_module.vhd" "082543db4604c32af9511a9d715a730b57535250" "20191212212225.633":
-  entity mips_tb at 2( 1) + 0 on 1895;
-  architecture topmodule_tb of mips_tb at 11( 105) + 0 on 1896;
-file . "top_module.vhd" "3a6d8a9ef8a418fe72c4487c8d689bb5c724f43f" "20191212212225.639":
-  entity mips at 1( 0) + 0 on 1899;
-  architecture rtl of mips at 24( 531) + 0 on 1900;
-file . "alu_control.vhd" "0bfc2de6a3e921a55721f99a4c857105f24a2aa2" "20191212212225.574":
-  entity ula_control at 1( 0) + 0 on 1871;
-  architecture behavioral of ula_control at 13( 276) + 0 on 1872;
-file . "branch_control.vhd" "fdffb14bfb36517d6fdc931a991488c45ce70972" "20191212212225.597":
-  entity branch_control at 1( 0) + 0 on 1875;
-  architecture behavioral of branch_control at 13( 220) + 0 on 1876;
+file . "ula.vhd" "79e6e2d693eda652a14e8666ca1517b080c2a362" "20191212225141.627":
+  entity alu at 1( 0) + 0 on 2157;
+  architecture behavioral of alu at 15( 295) + 0 on 2158;
+file . "test_bench.vhd" "8033d7e22ef95b229c4d2bf6d7bddc27d9a57849" "20191212225141.622":
+  entity test_bench at 2( 1) + 0 on 2153;
+  architecture behavioral of test_bench at 24( 543) + 0 on 2154;
+file . "somador.vhd" "108dd1ecca1adbaee4fbdd339a876caf8963cbbc" "20191212225141.620":
+  entity somador at 1( 0) + 0 on 2149;
+  architecture somador of somador at 13( 257) + 0 on 2150;
+file . "ROM.vhd" "28c12f216888d3ccf216f437810e260066f024da" "20191212225141.618":
+  entity instruction_memory at 1( 0) + 0 on 2147;
+  architecture instruction_memory of instruction_memory at 15( 225) + 0 on 2148;
+file . "pc.vhd" "489c1620bff41003971a099fed8bd058ec6bfa81" "20191212225141.617":
+  entity pc at 1( 0) + 0 on 2145;
+  architecture rtl of pc at 16( 247) + 0 on 2146;
+file . "mux_5.vhd" "37824b84576136a26e68d2c2592325db6e40d064" "20191212225141.615":
+  entity mux_5 at 1( 0) + 0 on 2143;
+  architecture mux_5 of mux_5 at 15( 283) + 0 on 2144;
+file . "mux_32bits.vhd" "76440aef2eba2947480688bdac658633f9dca44e" "20191212225141.613":
+  entity mux_32 at 1( 0) + 0 on 2141;
+  architecture mux_32 of mux_32 at 15( 287) + 0 on 2142;
+file . "mux_32_2bits_sel.vhd" "00ea04baeeeea368f72e9d7ffb73f7b88f447275" "20191212225141.610":
+  entity mux_32_2sel at 1( 0) + 0 on 2139;
+  architecture mux_32_2sel of mux_32_2sel at 17( 409) + 0 on 2140;
+file . "memoria_dados.vhd" "a810521854e3b391d3c100b1eed1469f6f6ae62d" "20191212225141.607":
+  entity data_memory at 1( 0) + 0 on 2137;
+  architecture data_memory of data_memory at 15( 297) + 0 on 2138;
+file . "jump_control.vhd" "c9a318b57e53c4da5e04151d9cf449dad4aafd2e" "20191212225141.603":
+  entity jump_mux_control at 1( 0) + 0 on 2135;
+  architecture behavioral of jump_mux_control at 12( 224) + 0 on 2136;
+file . "banco_registradores.vhd" "24c6a7a4923ebd95b5b752d8212e1f2db6be65c4" "20191212225141.594":
+  entity banco_reg at 1( 0) + 0 on 2129;
+  architecture banco_reg of banco_reg at 19( 474) + 0 on 2130;
+file . "controle.vhd" "fe2ea8a296acdbe82df5be28de33593816661521" "20191212225141.602":
+  entity controle at 1( 0) + 0 on 2133;
+  architecture controle of controle at 21( 478) + 0 on 2134;
+file . "test_bench_top_module.vhd" "082543db4604c32af9511a9d715a730b57535250" "20191212225141.621":
+  entity mips_tb at 2( 1) + 0 on 2151;
+  architecture topmodule_tb of mips_tb at 11( 105) + 0 on 2152;
+file . "top_module.vhd" "28fa33ddbc62708c82cdd1e2de8013981f1011a1" "20191212225141.625":
+  entity mips at 1( 0) + 0 on 2155;
+  architecture rtl of mips at 24( 531) + 0 on 2156;
+file . "alu_control.vhd" "0bfc2de6a3e921a55721f99a4c857105f24a2aa2" "20191212225141.575":
+  entity ula_control at 1( 0) + 0 on 2127;
+  architecture behavioral of ula_control at 13( 276) + 0 on 2128;
+file . "branch_control.vhd" "fdffb14bfb36517d6fdc931a991488c45ce70972" "20191212225141.597":
+  entity branch_control at 1( 0) + 0 on 2131;
+  architecture behavioral of branch_control at 13( 220) + 0 on 2132;

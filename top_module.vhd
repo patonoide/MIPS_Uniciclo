@@ -227,7 +227,13 @@ begin
 	--mux saida banco de registradores
 	mux_saida_banco_registradores : mux_32 port map (entrada0 => banco_reg_output2_out, entrada1 => extented_instruction, seletor => control_alusrc, saida => mux0_32_out);
 
-	alu0 : alu port map (A => banco_reg_output1_out, B => mux0_32_out, op => alu_op_out, zero => alu_zero_out , negative => alu_negative_out, result => alu_result_out );
+	alu0 : alu port map (A => banco_reg_output1_out,
+	 					 B => mux0_32_out,
+						 op => alu_op_out,
+						 zero => alu_zero_out ,
+						 negative => alu_negative_out,
+						 result => alu_result_out
+						 );
 
 	alu_control : ula_control port map (instruction_in => instruction_memory_out(5 downto 0) , alu_op => control_alu_op, alu_op_out => alu_op_out, jr => alu_jr_to_jr);
 
