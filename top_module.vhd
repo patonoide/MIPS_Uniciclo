@@ -10,7 +10,7 @@ entity mips is
 		instruction : out std_logic_vector(5 downto 0);
 	    regdst : out std_logic;
 	    jump : out std_logic_vector(1 downto 0);
-	    branch : out std_logic;
+	    branch : out std_logic_vector(1 downto 0);
 	    memread : out std_logic;
 	    memtoreg : out std_logic;
 	    aluop : out std_logic_vector(2 downto 0);
@@ -49,7 +49,7 @@ architecture rtl of mips is
 	    instruction : in std_logic_vector(5 downto 0);
 	    regdst : out std_logic;
 	    jump : out std_logic_vector(1 downto 0);
-	    branch : out std_logic;
+	    branch : out std_logic_vector(1 downto 0);
 	    memread : out std_logic;
 	    memtoreg : out std_logic;
 	    aluop : out std_logic_vector(2 downto 0);
@@ -58,6 +58,15 @@ architecture rtl of mips is
 	    regwrite : out std_logic
 
 	  );
+  end component;
+
+  component branch_control is
+    port (
+	  clock : in std_logic;
+      branch : in std_logic_vector(1 downto 0);
+      zero : in std_logic;
+      mux_in : out std_logic
+    );
   end component;
 
   component mux_32_2sel is
@@ -163,7 +172,7 @@ end component;
 	signal data_out_reg : std_logic_vector(31 downto 0);
 
 	signal extented_instruction : std_logic_vector(31 downto 0);
-
+	signal branch_and_zero : std_logic;
 	signal alu_op_out : std_logic_vector(3 downto 0);
 	signal alu_zero_out : std_logic;
 	signal alu_negative_out : std_logic;
@@ -171,14 +180,14 @@ end component;
 	signal data_memory_out : std_logic_vector(31 downto 0);
 	signal control_mem_to_reg : std_logic; -- saida controle
 	signal control_jmp : std_logic_vector(1 downto 0);
-	signal control_branch : std_logic;
+	signal control_branch : std_logic_vector(1 downto 0);
 	signal control_regdest : std_logic;
 	signal control_memread : std_logic;
 	signal control_alu_op : std_logic_vector(2 downto 0);
 	signal control_memwrite : std_logic;
 	signal control_alusrc : std_logic;
 	signal control_reg_write : std_logic;
-	signal branch_and_zero : std_logic;
+	signal branch_mux : std_logic;
 	signal saida_mux2 : std_logic_vector(31 downto 0);
 	signal somador2_out :std_logic_vector(31 downto 0);
 	signal jump_adress_before_add : std_logic_vector(31 downto 0);
@@ -212,6 +221,8 @@ begin
 							   output2 => banco_reg_output2_out,
 							   write_data => data_out_reg,
 							   write_enable => control_reg_write);
+
+	branch_control0 : branch_control port map (clock => clk, branch => control_branch, zero => alu_zero_out, mux_in => branch_and_zero );
 
 	--mux saida banco de registradores
 	mux_saida_banco_registradores : mux_32 port map (entrada0 => banco_reg_output2_out, entrada1 => extented_instruction, seletor => control_alusrc, saida => mux0_32_out);
@@ -250,7 +261,7 @@ begin
 
 	 extented_instruction <= "0000000000000000" & instruction_memory_out(15 downto 0);
 
-	 branch_and_zero <= control_branch and alu_zero_out;
+
 
 	 jump_adress_before_add <= pc_to_instruction_adder(31 downto 28) & instruction_memory_out(25 downto 0) & "00";
 

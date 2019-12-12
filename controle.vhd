@@ -7,7 +7,7 @@ entity controle is
     instruction : in std_logic_vector(5 downto 0);
     regdst : out std_logic;
     jump : out std_logic_vector(1 downto 0);
-    branch : out std_logic;
+    branch : out std_logic_vector(1 downto 0);
     memread : out std_logic;
     memtoreg : out std_logic;
     aluop : out std_logic_vector(2 downto 0);
@@ -34,7 +34,7 @@ architecture  controle of controle is
 					regwrite <= '1';
 					memread <= '1';
 					memwrite <= '0';
-					branch <= '0';
+					branch <= "00";
 					aluop <= "110";
                     jump <= "00";
 
@@ -45,7 +45,7 @@ architecture  controle of controle is
 					regwrite <= '0';
 					memread <= '0';
 					memwrite <= '1';
-					branch <= '0';
+					branch <= "00";
 					aluop <= "110";
                     jump <= "00";
 
@@ -56,7 +56,7 @@ architecture  controle of controle is
 					regwrite <= '1';
     				memread <= '0';
     				memwrite <= '0';
-    				branch <= '0';
+    				branch <= "00";
     				aluop <= "111";
                     jump <= "00";
 
@@ -67,7 +67,7 @@ architecture  controle of controle is
                     regwrite <= '1';
                     memread <= '0';
                     memwrite <= '0';
-                    branch <= '0';
+                    branch <= "00";
                     aluop <= "110";
                     jump <= "00";
 
@@ -78,7 +78,7 @@ architecture  controle of controle is
     				regwrite <= '1';
     				memread <= '0';
     				memwrite <= '0';
-    				branch <= '0';
+    				branch <= "00";
     				aluop <= "100";
                     jump <= "00";
 
@@ -89,7 +89,7 @@ architecture  controle of controle is
     				regwrite <= '1';
     				memread <= '0';
     				memwrite <= '0';
-    				branch <= '0';
+    				branch <= "00";
     				aluop <= "101";
                     jump <= "00";
 
@@ -100,7 +100,7 @@ architecture  controle of controle is
     				regwrite <= '1';
     				memread <= '0';
     				memwrite <= '0';
-    				branch <= '0';
+    				branch <= "00";
     				aluop <= "001";
                     jump <= "00";
 
@@ -108,24 +108,24 @@ architecture  controle of controle is
 
 
                 when "000100" => -- BEQ
-                    regdst <= '0'; -- X
+                    regdst <= '0';
                     alusrc <= '0';
-                    memtoreg <= 'X'; -- X
-                    regwrite <= '0'; -- X
+                    memtoreg <= '0';
+                    regwrite <= '0';
                     memread <= '0';
                     memwrite <= '0';
-                    branch <= '1';
+                    branch <= "01";
                     aluop <= "010";
                     jump <= "00";
 
 				when "000101" => -- BNE
-					regdst <= '0'; -- X
+					regdst <= '0';
 					alusrc <= '0';
-					memtoreg <= 'X'; -- X
-					regwrite <= '0'; -- X
+					memtoreg <= '0';
+					regwrite <= '0';
 					memread <= '0';
 					memwrite <= '0';
-					branch <= '0';
+					branch <= "10";
 					aluop <= "010";
                     jump <= "00";
 
@@ -137,7 +137,7 @@ architecture  controle of controle is
                     regwrite <= '0';
                     memread <= '0';
                     memwrite <= '0';
-                    branch <= '0';
+                    branch <= "00";
                     aluop <= "010";
                     jump <= "01";
 
@@ -150,18 +150,18 @@ architecture  controle of controle is
                     regwrite <= '0';
                     memread <= '0';
                     memwrite <= '0';
-                    branch <= '0';
+                    branch <= "00";
                     aluop <= "010";
                     jump <= "11";
 
                 when others => -- tipo R
-                    regdst <= '1'; -- X
+                    regdst <= '1';
                     alusrc <= '0';
-                    memtoreg <= '0'; -- X
-                    regwrite <= '1'; -- X
+                    memtoreg <= '0';
+                    regwrite <= '1'; 
                     memread <= '0';
                     memwrite <= '0';
-                    branch <= '0';
+                    branch <= "00";
                     aluop <= "000";
                     jump <= "00";
 

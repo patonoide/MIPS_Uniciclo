@@ -10,7 +10,7 @@ entity test_bench is
       instruction : out std_logic_vector(5 downto 0);
       regdst : out std_logic;
       jump : out std_logic_vector(1 downto 0);
-      branch : out  std_logic;
+      branch : out  std_logic_vector(1 downto 0);
       memread : out std_logic;
       memtoreg : out std_logic;
       aluop : out std_logic_vector(2 downto 0);
@@ -30,7 +30,7 @@ architecture behavioral of test_bench is
     		instruction : out std_logic_vector(5 downto 0);
     	    regdst : out std_logic;
     	    jump : out std_logic_vector(1 downto 0);
-    	    branch : out std_logic;
+    	    branch : out std_logic_vector(1 downto 0);
     	    memread : out std_logic;
     	    memtoreg : out std_logic;
     	    aluop : out std_logic_vector(2 downto 0);
