@@ -35,15 +35,15 @@ begin
             output1 <= "00000000000000000000000000000000";
         elsif address2 = "00000" then
             output2 <= "00000000000000000000000000000000";
-        else
-            if falling_edge(clock) and write_enable = '1' then
-                data_mem(to_integer(unsigned(write_address))) <= write_data;
 
-
-            end if;
-            output1 <= data_mem(to_integer(unsigned(address1)));
-            output2 <= data_mem(to_integer(unsigned(address2)));
         end if;
+        if falling_edge(clock) and write_enable = '1' then
+            data_mem(to_integer(unsigned(write_address))) <= write_data;
+
+
+        end if;
+        output1 <= data_mem(to_integer(unsigned(address1)));
+        output2 <= data_mem(to_integer(unsigned(address2)));
 
     end process;
 

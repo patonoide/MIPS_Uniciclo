@@ -156,6 +156,7 @@ end component;
     	instruction_in : in std_logic_vector(5 downto 0);
     	alu_op : in std_logic_vector(2 downto 0);
     	alu_op_out : out std_logic_vector(3 downto 0);
+		shift_control : out std_logic;
 		jr : out std_logic
   	);
    end component;
@@ -198,10 +199,16 @@ end component;
 	signal jr : std_logic_vector(31 downto 0);
 	signal alu_jr_to_jr : std_logic;
 	signal mux_control_to_mux : std_logic_vector(1 downto 0);
+	signal shamt : std_logic_vector(31 downto 0);
+	signal mux_shift_to_ula : std_logic_vector(31 downto 0);
+
+	signal mux_b_shift_control : std_logic;
 
 begin
 
 	valor4 <= "00000000000000000000000000000100";
+
+	shamt <= "000000000000000000000000000" & instruction_memory_out(10 downto 6);
 
 	pc0 : pc port map (clk => clk , reset => reset_pc,entrada => mux3_to_pc, saida => pc_to_instruction_adder );
 
@@ -210,6 +217,8 @@ begin
 	instructions : instruction_memory port map( address => pc_to_instruction_adder(8 downto 2), data_out => instruction_memory_out);
 
 
+
+	mux_shift_A : mux_32 port map (entrada0 =>  banco_reg_output1_out , entrada1 => shamt, seletor => mux_b_shift_control, saida => mux_shift_to_ula );
 	--mux 0 é o mux na entrada do banco de registradores
 	mux_banco_registradores : mux_5 port map (entrada0 => instruction_memory_out(20 downto 16) , entrada1 => instruction_memory_out(15 downto 11), seletor=>control_regdest ,saida => mux0_5_out);
 
@@ -227,7 +236,7 @@ begin
 	--mux saida banco de registradores
 	mux_saida_banco_registradores : mux_32 port map (entrada0 => banco_reg_output2_out, entrada1 => extented_instruction, seletor => control_alusrc, saida => mux0_32_out);
 
-	alu0 : alu port map (A => banco_reg_output1_out,
+	alu0 : alu port map (A => mux_shift_to_ula,
 	 					 B => mux0_32_out,
 						 op => alu_op_out,
 						 zero => alu_zero_out ,
@@ -235,7 +244,7 @@ begin
 						 result => alu_result_out
 						 );
 
-	alu_control : ula_control port map (instruction_in => instruction_memory_out(5 downto 0) , alu_op => control_alu_op, alu_op_out => alu_op_out, jr => alu_jr_to_jr);
+	alu_control : ula_control port map (instruction_in => instruction_memory_out(5 downto 0) , alu_op => control_alu_op, alu_op_out => alu_op_out, jr => alu_jr_to_jr, shift_control => mux_b_shift_control);
 
 	memoria_de_dados : data_memory port map(address => alu_result_out(8 downto 2) ,data_in => banco_reg_output2_out , data_out => data_memory_out, write_enable => control_memwrite );
 

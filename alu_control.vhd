@@ -6,6 +6,7 @@ entity ula_control is
     instruction_in : in std_logic_vector(5 downto 0); -- funct
     alu_op : in std_logic_vector(2 downto 0);
     alu_op_out : out std_logic_vector(3 downto 0);
+    shift_control : out std_logic;
     jr : out std_logic
   );
 end entity;
@@ -18,6 +19,7 @@ begin
     	process( instruction_in, alu_op)
     		begin
                 jr <= '0';
+                shift_control <= '0';
                 if alu_op = "111" then
                     alu_op_out <= "0110"; -- xor
                 elsif alu_op = "110" then
@@ -34,10 +36,13 @@ begin
                     alu_op_out <= "0100"; -- compara
                 elsif alu_op = "000" then -- outros
                     if instruction_in = "000010" then -- SRL
+                        shift_control <= '1';
                         alu_op_out <= "1000";
                     elsif instruction_in = "000011" then -- SRA
+                        shift_control <= '1';
                         alu_op_out <= "1001";
                     elsif instruction_in = "000000" then -- SLL
+                        shift_control <= '1';
                         alu_op_out <= "0111";
                     elsif instruction_in = "100000" then -- add
                         alu_op_out <= "0010";
